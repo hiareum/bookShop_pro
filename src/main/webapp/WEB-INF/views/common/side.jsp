@@ -45,8 +45,8 @@
 	<li>
 		<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;국내외 도서</h3>
 		<ul>
-		<!-- ${contextPath}/goods/goodsList.do -->
-			<li><a href="#">IT/인터넷</a></li>
+		<!-- ${contextPath}/goods/goodsList.do goodsList.jsp를 만들어야함 -->
+			<li><a href="${contextPath}/goods/goodsList.do">IT/인터넷</a></li>
 			<li><a href="#">경제/경영</a></li>
 			<li><a href="#">대학교재</a></li>
 			<li><a href="#">자기계발</a></li>

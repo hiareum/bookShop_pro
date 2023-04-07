@@ -7,6 +7,7 @@
 <c:set var="contextPath"  value="${pageContext.request.contextPath}" />
 
 <script type="text/javascript">
+/* 제시된 키워드를 클릭하면 keywordSearch()함수의 실행을 중지  */
 	var loopSearch=true;
 	function keywordSearch(){
 		if(loopSearch==false)
@@ -18,7 +19,9 @@
 			url : "${contextPath}/goods/keywordSearch.do",
 			data : {keyword:value},
 			success : function(data, textStatus) {
+				/* JSON.parse(data); : 전송된 데이터를 json으로 파싱 */
 			    var jsonInfo = JSON.parse(data);
+				/* 전송된 json데이터 표시  */
 				displayResult(jsonInfo);
 			},
 			error : function(data, textStatus) {
@@ -32,12 +35,15 @@
 	}
 	
 	function displayResult(jsonInfo){
+		/* json 데이터개수를 구합니다 */
 		var count = jsonInfo.keyword.length;
 		if(count > 0) {
 		    var html = '';
+		    /* 아래 for문을 json데이터를 자례대로 <a>태그를 이용해 키워드 목록을 만듦니다 */
 		    for(var i in jsonInfo.keyword){
 			   html += "<a href=\"javascript:select('"+jsonInfo.keyword[i]+"')\">"+jsonInfo.keyword[i]+"</a><br/>";
 		    }
+		    /* <a>태그로 만든 키워드 목록을 <div>태그에 차례대로 표시 */
 		    var listView = document.getElementById("suggestList");
 		    listView.innerHTML = html;
 		    show('suggest');

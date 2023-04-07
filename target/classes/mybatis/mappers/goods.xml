@@ -5,6 +5,7 @@
 
 <mapper namespace="mapper.goods">
 <!-- 리절트 맵 정의 -->	
+<!-- resultMap이란? sql쿼리 결과의 각 컬럼과 java객체의 필드릉 연결시켜준다 -->
 	<resultMap id="goodsResult" type="goodsVO">
 		<result property="goods_id" column="goods_id" />
 		<result property="goods_title" column="goods_title" />

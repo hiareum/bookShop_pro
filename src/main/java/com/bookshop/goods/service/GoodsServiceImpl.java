@@ -44,5 +44,19 @@ public class GoodsServiceImpl implements GoodsService{
 		goodsMap.put("imageList", imageList);
 		return goodsMap;
 	}
-
+	//키워르도 검색했을 때 키워드에 해당하는 책이름이 리스트로 출력되야 한다
+	@Override
+	public List<String> keywordSearch(String keyword) throws Exception {
+		List<String> list=goodsDAO.selectKeywordSearch(keyword);
+		return list;
+	}
+	
+	@Override
+	public List<GoodsVO> searchGoods(String searchWord) throws Exception{
+		List goodsList=goodsDAO.selectGoodsBySearchWord(searchWord);
+		return goodsList;
+	}
+	
+	
+	
 }
