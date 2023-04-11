@@ -82,18 +82,21 @@
 	<div id="head_link">
 		<ul>
 		   <c:choose>
+		 <%--로그인 했을 경우에는 로그아웃도 표시  --%>
 		     <c:when test="${isLogOn==true and not empty memberInfo }">
 			   <li><a href="${contextPath}/member/logout.do">로그아웃</a></li>
 			   <li><a href="${contextPath}/mypage/myPageMain.do">마이페이지</a></li>
 			   <li><a href="${contextPath}/cart/myCartList.do">장바구니</a></li>
 			   <li><a href="#">주문배송</a></li>
 			 </c:when>
+			<%--  로그아웃이 되어있을 경우에는 로그인을 표시 --%> 
 			 <c:otherwise>
 			   <li><a href="${contextPath}/member/loginForm.do">로그인</a></li>
 			   <li><a href="${contextPath}/member/memberForm.do">회원가입</a></li> 
 			 </c:otherwise>
 			</c:choose>
 			   <li><a href="#">고객센터</a></li>
+			   <!-- 관리자로 로그인 했을 경우 관리자 표시 -->
       <c:if test="${isLogOn==true and memberInfo.member_id =='admin' }">  
 	   	   <li class="no_line"><a href="${contextPath}/admin/goods/adminGoodsMain.do">관리자</a></li>
 	    </c:if>

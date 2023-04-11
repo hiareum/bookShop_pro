@@ -62,7 +62,9 @@
 				
 			},
 			error : function(data, textStatus) {
-				alert("에러가 발생했습니다."+data);
+				alert("로그인 후 이용하세요"+data);
+				/* 아름 추가:로그인상태가 아닐 때 장바구니에 추가하려할 경우 로그인 후 이용하라는 문구와 로그인창 페이지로 넘어가게 함 */
+				window.location.href = "${contextPath}/member/loginForm.do"; // 에러 페이지 URL로 이동
 			},
 			complete : function(data, textStatus) {
 				//alert("작업을완료 했습니다");
