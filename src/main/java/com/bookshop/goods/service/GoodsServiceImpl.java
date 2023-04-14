@@ -34,6 +34,16 @@ public class GoodsServiceImpl implements GoodsService{
 		return goodsMap;
 	}
 	
+	//아름 IT추가
+	@Override
+	public Map<String, List<GoodsVO>> ItselectGoodsList(String goods_sort) throws Exception {
+		Map<String,List<GoodsVO>> goodsMap=new HashMap<String,List<GoodsVO>>();
+		List<GoodsVO> goodsList=goodsDAO.ItselectGoodsList(goods_sort);
+		goodsMap.put("goodsList",goodsList);
+		return goodsMap;
+	}
+	
+	
 	@Override
 	public Map goodsDetail(String _goods_id) throws Exception {
 		Map goodsMap=new HashMap();

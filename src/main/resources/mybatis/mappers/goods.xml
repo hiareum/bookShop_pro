@@ -52,6 +52,16 @@
 	    ]]>
 	</select>
 	
+	
+	<!-- 아름 IT추가 -->
+	  <select id="ItselectGoodsList" parameterType="String" resultMap="goodsResult"   >
+        <![CDATA[
+        SELECT * FROM t_shopping_goods
+	    ]]>
+	</select>
+	
+	
+	
 	<select id="selectGoodsDetail" resultMap="goodsResult"   parameterType="String"  >
 	    <![CDATA[
 		     select g.*,d.fileName from t_shopping_goods g, t_goods_detail_image d

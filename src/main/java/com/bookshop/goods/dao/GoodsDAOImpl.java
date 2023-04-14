@@ -23,6 +23,13 @@ public class GoodsDAOImpl implements GoodsDAO {
 		List<GoodsVO> goodsList=(ArrayList)sqlSession.selectList("mapper.goods.selectGoodsList",goodsStatus);
 		   return goodsList;	
 	}
+	
+	//아름 IT추가
+	@Override
+	public List<GoodsVO> ItselectGoodsList(String goods_sort) throws DataAccessException {
+		List<GoodsVO> goodsList=(ArrayList)sqlSession.selectList("mapper.goods.ItselectGoodsList",goods_sort);
+		   return goodsList;	
+	}
 
 	@Override
 	public GoodsVO selectGoodsDetail(String goods_id) throws DataAccessException {

@@ -88,6 +88,7 @@
 		}
 	}
 	
+	//order클래스를 만들면서 생성
 function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 	var _isLogOn=document.getElementById("isLogOn");
 	var isLogOn=_isLogOn.value;

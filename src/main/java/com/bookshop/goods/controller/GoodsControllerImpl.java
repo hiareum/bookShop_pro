@@ -91,20 +91,17 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 	}
 	
 	
-	/*
-	 * 
-	 * 
-	 * 
-	//시험해봄 지워라!
 	
-	@RequestMapping(value="/goodsList.do" ,method = RequestMethod.GET)
+	//시험해봄 지워라! 아름 IT추가
+	
+	@RequestMapping(value="/goodsList.do" , method=RequestMethod.GET)
 	//조회할 상품번호를 전달받음
-	public ModelAndView goodsDetail( HttpServletRequest request, HttpServletResponse response)
+	public ModelAndView goodsList(@RequestParam("goods_sort") String goods_sort, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		String viewName=(String)request.getAttribute("viewName");
 		HttpSession session=request.getSession();
 		//상품정보를 조회한 후 MAP으로 반환
-		Map goodsMap=goodsService.listGoods();
+		Map goodsMap=goodsService.ItselectGoodsList(goods_sort);
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("goodsMap", goodsMap);
 		//조회한 상품의 정보를 빠른메뉴에 표시하기위해 전달
@@ -114,7 +111,7 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 	}
 
 	
-	*/
+
 
 	private void addGoodsInQuick(String goods_id, GoodsVO goodsVO, HttpSession session) {
 		boolean already_existed=false;

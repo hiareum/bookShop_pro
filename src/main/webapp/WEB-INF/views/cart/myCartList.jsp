@@ -11,6 +11,7 @@
 <c:set  var="totalGoodsNum" value="0" />  <!--주문 개수 -->
 <c:set  var="totalDeliveryPrice" value="0" /> <!-- 총 배송비 --> 
 <c:set  var="totalDiscountedPrice" value="0" /> <!-- 총 할인금액 -->
+
 <head>
 <script type="text/javascript">
 function calcGoodsPrice(bookPrice,obj){
@@ -147,6 +148,7 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
     formObj.submit();
 }
 
+//주문하기 구현할 때 작성
 function fn_order_all_cart_goods(){
 //	alert("모두 주문하기");
 	var order_goods_qty;
@@ -154,10 +156,12 @@ function fn_order_all_cart_goods(){
 	var objForm=document.frm_order_all_cart;
 	var cart_goods_qty=objForm.cart_goods_qty;
 	var h_order_each_goods_qty=objForm.h_order_each_goods_qty;
+	//상품 주문여부를 체크하는 체크박스 객체를 가져옵니다
 	var checked_goods=objForm.checked_goods;
+	//주문용으로 선택한 총 상품 개수를 가져옵니다
 	var length=checked_goods.length;
 	
-	
+	//여러상품을 주문할 경우 하나의 상품에 대해 상품번호:주문수량 문자열을 만든 후 전체 상품 정보를 배열로 전송
 	//alert(length);
 	if(length>1){
 		for(var i=0; i<length;i++){
@@ -171,6 +175,7 @@ function fn_order_all_cart_goods(){
 			}
 		}	
 	}else{
+		//상품을 하나만 주문할 경우 문자열로 전송
 		order_goods_id=checked_goods.value;
 		order_goods_qty=cart_goods_qty.value;
 		cart_goods_qty.value=order_goods_id+":"+order_goods_qty;
@@ -225,7 +230,7 @@ function fn_order_all_cart_goods(){
 					<td class="price"><span>${item.goods_price }원</span></td>
 					<td>
 					   <strong>
-					      <fmt:formatNumber  value="${item.goods_sales_price*0.9}" type="number" var="discounted_price" />
+					      <fmt:formatNumber  value="${item.goods_price*0.9}" type="number" var="discounted_price" />
 				            ${discounted_price}원(10%할인)
 				         </strong>
 					</td>
@@ -237,7 +242,7 @@ function fn_order_all_cart_goods(){
 					</td>
 					<td>
 					   <strong>
-					    <fmt:formatNumber  value="${item.goods_sales_price*0.9*cart_goods_qty}" type="number" var="total_sales_price" />
+					    <fmt:formatNumber  value="${item.goods_price*0.9*cart_goods_qty}" type="number" var="total_sales_price" />
 				         ${total_sales_price}원
 					</strong> </td>
 					<td>
@@ -258,8 +263,9 @@ function fn_order_all_cart_goods(){
 					   </a>
 					</td>
 			</tr>
-				<c:set  var="totalGoodsPrice" value="${totalGoodsPrice+item.goods_sales_price*0.9*cart_goods_qty }" />
+				<c:set  var="totalGoodsPrice" value="${totalGoodsPrice+item.goods_price*0.9*cart_goods_qty }" />
 				<c:set  var="totalGoodsNum" value="${totalGoodsNum+1 }" />
+				
 			   </c:forEach>
 		    
 		</tbody>
@@ -275,6 +281,7 @@ function fn_order_all_cart_goods(){
 	<tbody>
 	     <tr  align=center  class="fixed" >
 	       <td class="fixed">총 상품수 </td>
+	       
 	       <td>총 상품금액</td>
 	       <td>  </td>
 	       <td>총 배송비</td>
@@ -288,6 +295,7 @@ function fn_order_all_cart_goods(){
 			  <p id="p_totalGoodsNum">${totalGoodsNum}개 </p>
 			  <input id="h_totalGoodsNum"type="hidden" value="${totalGoodsNum}"  />
 			</td>
+			
 	       <td>
 	          <p id="p_totalGoodsPrice">
 	          <fmt:formatNumber  value="${totalGoodsPrice}" type="number" var="total_goods_price" />
@@ -329,7 +337,7 @@ function fn_order_all_cart_goods(){
 		 <a href="javascript:fn_order_all_cart_goods()">
 		 	<img width="75" alt="" src="${contextPath}/resources/image/btn_order_final.jpg">
 		 </a>
-		 <a href="#">
+		 <a href="${contextPath}/main/main.do">
 		 	<img width="75" alt="" src="${contextPath}/resources/image/btn_shoping_continue.jpg">
 		 </a>
 	<center>

@@ -14,4 +14,6 @@ public interface GoodsDAO {
 	public List<ImageFileVO> selectGoodsDetailImage(String goods_id) throws DataAccessException;
 	public List<String> selectKeywordSearch(String keyword) throws DataAccessException;
 	public ArrayList selectGoodsBySearchWord(String searchWord) throws DataAccessException;
+	//아름 IT추가
+	public List<GoodsVO> ItselectGoodsList(String goods_sort) throws DataAccessException;
 }

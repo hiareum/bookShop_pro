@@ -84,6 +84,8 @@
 		   <c:choose>
 		 <%--로그인 했을 경우에는 로그아웃도 표시  --%>
 		     <c:when test="${isLogOn==true and not empty memberInfo }">
+		     <%--로그인 했을 경우에는 사용자 이름과 함께 환영합니다 문구 뜨게하기 --%>
+		       <li><h4>${memberInfo.member_name}님 환영합니다</h4></li>
 			   <li><a href="${contextPath}/member/logout.do">로그아웃</a></li>
 			   <li><a href="${contextPath}/mypage/myPageMain.do">마이페이지</a></li>
 			   <li><a href="${contextPath}/cart/myCartList.do">장바구니</a></li>
