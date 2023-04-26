@@ -34,7 +34,9 @@
 		<result property="joinDate" column="joinDate" />
 		<result property="del_yn" column="del_yn" />
 	</resultMap>
-<select id="listMember" resultMap="memberResult"   parameterType="java.util.HashMap"  >
+	
+	
+<!-- <select id="listMember" resultMap="memberResult"   parameterType="java.util.HashMap"  >
 		  select * from (
 			    select rowNum as recNum,t.*
 			       from (
@@ -54,18 +56,27 @@
 				)							
 			where				
 		recNum between (#{chapter}-1)*100+ (#{pageNum}-1)*10+1 and (#{chapter}-1)*100+(#{pageNum})*10				        
+	</select> -->
+	
+	<select id="listMember" resultMap="memberResult"   parameterType="java.util.HashMap"  >
+	
+	 <![CDATA[
+		    select * from t_shopping_member
+    	]]>
 	</select>
+	
+	
 	
     <select id="memberDetail" resultMap="memberResult"   parameterType="String"  >
 	    <![CDATA[
-		    select * from t_shoping_member
+		    select * from t_shopping_member
             where member_id=#{member_id}
     	]]>
 	</select>	
 	
 
 	<update id="modifyMemberInfo" parameterType="java.util.HashMap">
-	   update t_shoping_member
+	   update t_shopping_member
 			   <set>
 			      <if test=" member_pw!='' and member_pw!=null">
 			        member_pw=#{member_pw},
