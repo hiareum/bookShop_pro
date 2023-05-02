@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+<!-- 카카오 결제 실패 페이지 -->
+    <definition name="/naver/naverResultfail" extends="baseLayout">
+       <put-attribute name="title" value="네이버 결제 실패 페이지" />
+       <put-attribute name="body" value="/WEB-INF/views/naver/naverResultfail.jsp" />
+    </definition>
+    <!-- 카카오 결제 성공 페이지 -->
+    <definition name="/naver/naverResult" extends="baseLayout">
+       <put-attribute name="title" value="네이버 결제 성공 페이지" />
+       <put-attribute name="body" value="/WEB-INF/views/naver/naverResult.jsp" />
+    </definition> 
+ 
+   
+</tiles-definitions>
+
+

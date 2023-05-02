@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"
-	isELIgnored="false"%> 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    pageEncoding="utf-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
 </head>
-<BODY>
-	<H1>1.최종 주문 내역서</H1>
+<body>
+<H1>1.최종 주문 내역서</H1>
 	<TABLE class="list_view">
 		<TBODY align=center>
 			<tr style="background: #33ff00">
@@ -43,8 +47,7 @@
 			</c:forEach>
 		</TBODY>
 	</TABLE>
-	<DIV class="clear"></DIV>
-<form  name="form_order">
+	<form  name="form_order">
 	<br>
 	<br>
 	<H1>2.배송지 정보</H1>
@@ -99,7 +102,8 @@
 		</TABLE>
 		
 	</DIV>
-	<div >
+	
+		<div >
 	  <br><br>
 	   <h2>주문고객</h2>
 		 <table >
@@ -125,51 +129,27 @@
 		   </TBODY>
 		</table>
 	</div>
-	<DIV class="clear"></DIV>
-	<br>
-	<br>
-	<br>
-	<H1>3.결제정보</H1>
+	
+	<H1>결제성공</H1>
 	<DIV class="detail_table">
-		<table>
+	
+		<TABLE>
 			<TBODY>
 				<TR class="dot_line">
-					<TD class="fixed_join">결제방법</TD>
+					<TD class="fixed_join">결제코드</TD>
 					<TD>
-					   ${myOrderInfo.pay_method }
+					  <c:out value="${responseCode}"></c:out>
 				    </TD>
 				</TR>
 				<TR class="dot_line">
-					<TD class="fixed_join">결제카드</TD>
+					<TD class="fixed_join">결제 메세지</TD>
 					<TD>
-					   ${myOrderInfo.card_com_name}
-				    </TD>
+					<c:out value="${responseMsg}"></c:out>
+					</TD>
 				</TR>
-				<TR class="dot_line">
-					<TD class="fixed_join">할부기간</TD>
-					<TD>
-					   ${myOrderInfo.card_pay_month }
-				    </TD>
-				</TR>
-				
 			</TBODY>
-		</table>
-	</DIV>
-	
-	
-</form>
-    <DIV class="clear"></DIV>
-	<br>
-	<br>
-	<br>
-	<center>
-		<br>
-		<br> 
-		<a href="${contextPath}/main/main.do"> 
-		   <IMG width="75" alt="" src="${contextPath}/resources/image/btn_shoping_continue.jpg">
-		</a>
-<DIV class="clear"></DIV>		
-	
-			
-			
-			
+		</TABLE>
+		</DIV>
+		</form>
+</body>
+</html>

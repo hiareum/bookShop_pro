@@ -18,7 +18,25 @@
        <put-attribute name="title" value="상품 주문 결과 페이지" />
        <put-attribute name="body" value="/WEB-INF/views/order/orderResult.jsp" />
     </definition>
+  <!-- 주문 실패 결과 표기 -->
+    <definition name="/order/orderResultfail" extends="baseLayout">
+       <put-attribute name="title" value="결제 실패 페이지" />
+       <put-attribute name="body" value="/WEB-INF/views/order/orderResultfail.jsp" />
+    </definition> 
     
+     <!-- 주문 성공 결과 표기 -->
+<!--      
+    <definition name="/order/orderResultOk" extends="baseLayout">
+       <put-attribute name="title" value="결제 성공 페이지" />
+       <put-attribute name="body" value="/WEB-INF/views/order/orderResultOk.jsp" />
+    </definition>   -->
+   
+     <!-- 주문 성공 결과 표기 -->
+    <definition name="/order/orderResult" extends="baseLayout">
+       <put-attribute name="title" value="결제 성공 페이지" />
+       <put-attribute name="body" value="/WEB-INF/views/order/orderResult.jsp" />
+    </definition> 
+   
 </tiles-definitions>
 
 

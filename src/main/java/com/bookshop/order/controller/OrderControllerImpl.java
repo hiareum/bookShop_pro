@@ -1,6 +1,7 @@
 package com.bookshop.order.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,7 @@ import com.bookshop.common.base.BaseController;
 import com.bookshop.order.controller.OrderController;
 import com.bookshop.order.vo.OrderVO;
 import com.bookshop.goods.vo.GoodsVO;
+import com.bookshop.order.service.ApiService01;
 import com.bookshop.order.service.OrderService;
 import com.bookshop.member.vo.MemberVO;
 
@@ -30,6 +32,9 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 	private OrderVO orderVO;
 	@Autowired
 	private OrderService orderService;
+	
+	@Autowired
+	private ApiService01 apiService01;
 	
 	@Override
 	@RequestMapping(value="/orderEachGoods.do" ,method = RequestMethod.POST)
@@ -79,6 +84,99 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 			                       HttpServletRequest request, HttpServletResponse response)  throws Exception{
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
+		
+		//결제하기 수업 : 데이터가 잘 넘어오는지 콘솔에서 확인 : @RequestParam으로 인해 orderGoodForm.jsp를 통해 입력한 값들이 receiverMap에 저장되고 출력
+		System.out.println("확인 : " + receiverMap.toString());
+		
+		
+		//결제하기 수업 : 결제하기 요청 (카드결제_구인증_API_규격서에 있는 필수값들 변수명은 규격서내 이름과 일치하게 작성)
+		String merchantId="";
+		String orderNumber ="";  //주문번호
+		String cardNo ="";  // 카드번호
+		String expireMonth ="";  //유효기간
+		String expireYear ="";
+		String birthday ="";
+		String cardPw ="";
+		String amount ="";
+		String quota ="";
+		String itemName ="";
+		String userName ="";
+		String signature ="";
+		String timestamp ="";
+		String apiCertKey =""; //api인증키
+		
+		//위에 변수설정하였고 값을 셋팅
+		merchantId="himedia";
+		apiCertKey="ac805b30517f4fd08e3e80490e559f8e";
+		orderNumber = "TEST_choi1234"; // 주문번호 생성
+		cardNo = receiverMap.get("cardNo"); //화면에서 받은 값
+		expireMonth = receiverMap.get("expireMonth"); //화면에서 받은 값
+		expireYear = receiverMap.get("expireYear"); //화면에서 받은 값
+		birthday = receiverMap.get("birthday"); //화면에서 받은 값
+		cardPw = receiverMap.get("cardPw"); //화면에서 받은 값
+		amount = "1000";
+		quota = "0"; //일시불
+		itemName = "책";
+		userName = receiverMap.get("receiver_name");//화면에서 받은 값
+		signature = ""; //서명값
+		timestamp ="20230501";
+		
+		
+		signature = apiService01.encrypt(merchantId+"|"+orderNumber+"|"+amount+"|"+apiCertKey+"|"+timestamp);  //서명값
+		
+		
+		//rest api를 라이브러리 써서 사용
+		//가장 평범한 통신은 httpURLconnection 으로 하는 통신 (아래에서 사용X)
+		String url="https://api.testpayup.co.kr/v2/api/payment/"+merchantId+"/keyin2";
+		Map<String,String> map = new HashMap<String,String>();
+		Map<String,Object> returnMap = new HashMap<String,Object>();
+		
+		//map에다가 요청데이터값들을 넣으면 된다
+		map.put("merchantId",merchantId);
+		map.put("orderNumber",orderNumber);
+		map.put("cardNo",cardNo);
+		map.put("expireMonth",expireMonth);
+		map.put("expireYear",expireYear);
+		map.put("birthday",birthday);
+		map.put("cardPw",cardPw);
+		map.put("amount",amount);
+		map.put("quota",quota);
+		map.put("itemName",itemName);
+		map.put("userName",userName);
+		map.put("signature",signature);
+		map.put("timestamp",timestamp);
+		
+		returnMap=apiService01.restApi(map, url);
+		
+		System.out.println("카드승인 응답 데이터" + returnMap.toString());
+		
+		//응답값을 잘 받으면
+		//승인 성공 or 실패
+		String responseCode= (String) returnMap.get("responseCode");
+		
+		if("0000".equals(responseCode)) {
+			
+	//mav.setViewName("/order/orderResultOk");
+	mav.setViewName("/order/orderResult");
+			
+			mav.addObject("responseCode",returnMap.get("responseCode"));
+			mav.addObject("responseMsg",returnMap.get("responseMsg"));
+			
+			//성공
+			System.out.println(responseCode+"결제성공");
+		}else {
+			
+			mav.setViewName("/order/orderResultfail");
+			
+			mav.addObject("responseCode",returnMap.get("responseCode"));
+			mav.addObject("responseMsg",returnMap.get("responseMsg"));
+			
+			System.out.println(responseCode+"결제실패");
+			//페이지 설정
+		}
+		
+		
+		
 		
 		HttpSession session=request.getSession();
 		MemberVO memberVO=(MemberVO)session.getAttribute("orderer");
